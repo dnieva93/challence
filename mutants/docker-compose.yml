@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:4.4
+    restart: always
+    environment:
+      TZ: "America/Bogota"
+      MONGO_INITDB_ROOT_USERNAME: "devuser"
+      MONGO_INITDB_ROOT_PASSWORD: "iotdans"
+    volumes:
+      - ./mongodata:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - my-network
+
+  app-mutants:
+    container_name: app
+    build: ./
+    image: app:latest
+    ports:
+        - 9081:9081
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
