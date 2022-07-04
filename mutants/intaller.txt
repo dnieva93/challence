@@ -1,0 +1,7 @@
+sudo apt-get update
+wget https://get.docker.com/
+mv index.html install_docker.sh
+chmod 777 install_docker.sh
+./install_docker.sh
+sudo rm install_docker.sh
+sudo git clone https://github.com/dnieva93/challence.git
